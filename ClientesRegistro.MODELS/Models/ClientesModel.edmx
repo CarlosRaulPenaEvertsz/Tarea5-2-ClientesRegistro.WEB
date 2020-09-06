@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClientesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre_Comercial" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" />
+          <Property Name="Sexo" Type="varchar" MaxLength="1" />
+          <Property Name="Fecha_Nacimiento" Type="date" />
+          <Property Name="Cedula_RNC" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="200" />
+          <Property Name="Telefono" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="TipoNCF" Type="int" />
+        </EntityType>
+        <EntityType Name="TipoNCF">
+          <Key>
+            <PropertyRef Name="TipoNCF_Id" />
+          </Key>
+          <Property Name="TipoNCF_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreComprobanteFiscal" Type="nvarchar" MaxLength="50" />
+          <Property Name="NCF_Actual" Type="int" />
+          <Property Name="NCF_Hasta" Type="int" />
+        </EntityType>
+        <Association Name="FK_Clientes_TipoNCF">
+          <End Role="TipoNCF" Type="Self.TipoNCF" Multiplicity="0..1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoNCF">
+              <PropertyRef Name="TipoNCF_Id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="TipoNCF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClientesDBModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoNCF" EntityType="Self.TipoNCF" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Clientes_TipoNCF" Association="Self.FK_Clientes_TipoNCF">
+            <End Role="TipoNCF" EntitySet="TipoNCF" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClientesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Comercial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_Nacimiento" Type="DateTime" Precision="0" />
+          <Property Name="Cedula_RNC" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TipoNCF" Type="Int32" />
+          <NavigationProperty Name="TipoNCF1" Relationship="Self.FK_Clientes_TipoNCF" FromRole="Clientes" ToRole="TipoNCF" />
+        </EntityType>
+        <EntityType Name="TipoNCF">
+          <Key>
+            <PropertyRef Name="TipoNCF_Id" />
+          </Key>
+          <Property Name="TipoNCF_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreComprobanteFiscal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NCF_Actual" Type="Int32" />
+          <Property Name="NCF_Hasta" Type="Int32" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_TipoNCF" FromRole="TipoNCF" ToRole="Clientes" />
+        </EntityType>
+        <Association Name="FK_Clientes_TipoNCF">
+          <End Role="TipoNCF" Type="Self.TipoNCF" Multiplicity="0..1" />
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoNCF">
+              <PropertyRef Name="TipoNCF_Id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="TipoNCF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClientesDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+          <EntitySet Name="TipoNCFs" EntityType="Self.TipoNCF" />
+          <AssociationSet Name="FK_Clientes_TipoNCF" Association="Self.FK_Clientes_TipoNCF">
+            <End Role="TipoNCF" EntitySet="TipoNCFs" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClientesDBModelStoreContainer" CdmEntityContainer="ClientesDBEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="ClientesDBModel.Cliente">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre_Comercial" ColumnName="Nombre_Comercial" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Fecha_Nacimiento" ColumnName="Fecha_Nacimiento" />
+                <ScalarProperty Name="Cedula_RNC" ColumnName="Cedula_RNC" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="TipoNCF" ColumnName="TipoNCF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoNCFs">
+            <EntityTypeMapping TypeName="ClientesDBModel.TipoNCF">
+              <MappingFragment StoreEntitySet="TipoNCF">
+                <ScalarProperty Name="TipoNCF_Id" ColumnName="TipoNCF_Id" />
+                <ScalarProperty Name="NombreComprobanteFiscal" ColumnName="NombreComprobanteFiscal" />
+                <ScalarProperty Name="NCF_Actual" ColumnName="NCF_Actual" />
+                <ScalarProperty Name="NCF_Hasta" ColumnName="NCF_Hasta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

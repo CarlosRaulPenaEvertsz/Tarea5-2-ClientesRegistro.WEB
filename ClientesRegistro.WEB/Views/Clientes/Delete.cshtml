@@ -1,0 +1,104 @@
+﻿@model ClientesRegistro.MODELS.Models.Cliente
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Borrar Cliente</h2>
+
+<h3>Esta seguro que quiere borrar este cliente?</h3>
+<div>
+
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre_Comercial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Comercial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apellidos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellidos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sexo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sexo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_Nacimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Nacimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cedula_RNC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cedula_RNC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoNCF1.NombreComprobanteFiscal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoNCF1.NombreComprobanteFiscal)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) { 
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Borrar" class="btn btn-success" /> |
+        @Html.ActionLink("Volver al Listado", "Index", "Clientes", new { controller = "Clientes" }, new { @class = "btn btn-success" })
+    </div>
+    }
+</div>

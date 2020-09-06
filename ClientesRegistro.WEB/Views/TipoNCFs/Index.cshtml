@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ClientesRegistro.MODELS.Models.TipoNCF>
+
+@{
+                /**/
+
+                ViewBag.Title = "Listado NCFs";
+}
+
+<h2>Listado NCFs</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <div class="row">
+        <div class="col-sm-1">
+            @Html.ActionLink("Crear NCF", "Create", new { controller = "TipoNCFs" }, new { @class = "btn btn-success" })
+        </div>
+        <div class="col-sm-2">
+            <input class="form-control" id="input_search" name="search" type="text" placeholder="Buscar NCF..." />
+        </div>
+    </div>
+
+
+</p>
+<table class="table" id="cuerpolistado">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreComprobanteFiscal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NCF_Actual)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NCF_Hasta)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @*@Html.DisplayFor(modelItem => item.TipoNCF_Id, "IntDosDigitos")*@
+        @String.Format("{0:00}", item.TipoNCF_Id)-
+        @Html.DisplayFor(modelItem => item.NombreComprobanteFiscal)
+
+    </td>
+    <td>
+        @Html.Label("B" + String.Format("{0:00}", item.TipoNCF_Id) + String.Format("{0:00000000}", item.NCF_Actual))
+        @*@Html.DisplayFor(modelItem => item.NCF_Actual)*@
+    </td>
+    <td>
+        @Html.Label("B" + String.Format("{0:00}", item.TipoNCF_Id) + String.Format("{0:00000000}", item.NCF_Hasta))
+        @*@Html.DisplayFor(modelItem => item.NCF_Hasta)*@
+    </td>
+    <td>
+        @*@Html.ActionLink("Edit", "Edit", new { id = item.TipoNCF_Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.TipoNCF_Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.TipoNCF_Id })*@
+        @Html.Raw("<a data-modal='' href='/TipoNCFs/Edit/" + item.TipoNCF_Id + "' id='" + item.TipoNCF_Id + "' title='Modificar'> <span class='glyphicon glyphicon-edit'> </span> <a/>")
+        @Html.Raw("<a data-modal='' href='/TipoNCFs/Details/" + item.TipoNCF_Id + "' id='" + item.TipoNCF_Id + "' title='Detalles'> <span class='glyphicon glyphicon-th-list'> </span> <a/>")
+        @Html.Raw("<a data-modal='' href='/TipoNCFs/Delete/" + item.TipoNCF_Id + "' id='" + item.TipoNCF_Id + "' title='Eliminar'> <span class='glyphicon glyphicon-trash'> </span> <a/>")
+
+    </td>
+</tr>
+}
+
+</table>
+
+
+@section scripts{
+    <script>
+                $(document).ready(function () {
+                    $("#input_search").on("keyup", function () {
+                        var value = $(this).val().toLowerCase();
+                        $("#cuerpolistado tr").filter(function () {
+                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                        });
+                    });
+                });
+    </script>
+    }

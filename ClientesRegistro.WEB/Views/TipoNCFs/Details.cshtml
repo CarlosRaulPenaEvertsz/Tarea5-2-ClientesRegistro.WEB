@@ -1,0 +1,45 @@
+﻿@model ClientesRegistro.MODELS.Models.TipoNCF
+
+@{
+    ViewBag.Title = "Detalle NCFs";
+}
+
+<h2>Detalle NCFs</h2>
+
+<div>
+    @*<h4>TipoNCF</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.NombreComprobanteFiscal)*@
+            @Html.Label("Nombre NCF")
+        </dt>
+
+        <dd>
+            @String.Format("{0:00}", Model.TipoNCF_Id)-
+            @Html.DisplayFor(model => model.NombreComprobanteFiscal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NCF_Actual)
+        </dt>
+
+        <dd>
+            @Html.Label("B" + String.Format("{0:00}", Model.TipoNCF_Id) + String.Format("{0:00000000}", Model.NCF_Actual))
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NCF_Hasta)
+        </dt>
+
+        <dd>
+            @Html.Label("B" + String.Format("{0:00}", Model.TipoNCF_Id) + String.Format("{0:00000000}", Model.NCF_Hasta))
+        @*@Html.DisplayFor(model => model.NCF_Hasta)*@
+            </dd>
+
+</dl>
+</div>
+<p>
+    @Html.ActionLink("Actualizar", "Edit", new { id = Model.TipoNCF_Id }, new { @class = "btn btn-success" }) | 
+    @Html.ActionLink("Volver al Listado", "Index", "TipoNCFs", new { controller = "TipoNCFs" }, new { @class = "btn btn-success" })
+</p>
